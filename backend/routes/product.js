@@ -2,6 +2,14 @@ const express = require('express');
 const router = express.Router();
 const upload = require('../middleware/uploadImage');
 const bucket = require('../config/firebase');
+const {
+  createProduct,
+  getProducts,
+  updateProduct,
+  deleteProduct
+} = require('../controllers/productController');
+const authenticate = require('../middleware/authMiddleware');
+
 router.post(
     '/upload',
     authenticate,
@@ -33,14 +41,6 @@ router.post(
       }
     }
   );
-  
-const {
-  createProduct,
-  getProducts,
-  updateProduct,
-  deleteProduct
-} = require('../controllers/productController');
-const authenticate = require('../middleware/authMiddleware');
 
 // Protected routes
 router.post('/', authenticate, createProduct);

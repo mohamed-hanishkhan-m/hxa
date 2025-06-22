@@ -1,6 +1,8 @@
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
+const productRoutes = require('./routes/product');
+
 require('dotenv').config();
 
 const app = express();
@@ -17,6 +19,8 @@ app.use(express.json());
 
 // Routes
 app.use('/api/admin', require('./routes/admin'));
+app.use('/api/products', productRoutes);
+
 
 app.get('/api/ping', (req, res) => res.json({ message: 'Backend is alive 🚀' }));
 

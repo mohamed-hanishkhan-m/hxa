@@ -27,21 +27,29 @@ router.post(
         });
   
         blobStream.on('error', (err) => {
-          res.status(500).json({ message: 'Upload failed', error: err.message });
+          return res.status(500).json({ message: 'Upload failed', error: err.message });
         });
   
         blobStream.on('finish', async () => {
-          const publicUrl = `https://storage.googleapis.com/${bucket.name}/${blob.name}`;
-          res.status(200).json({ message: 'Uploaded', url: publicUrl });
+          try {
+            // Make the uploaded file public
+            await blob.makePublic();
+  
+            const publicUrl = `https://storage.googleapis.com/${bucket.name}/${blob.name}`;
+            return res.status(200).json({ message: 'Uploaded', url: publicUrl });
+          } catch (err) {
+            return res.status(500).json({ message: 'Upload succeeded but failed to make public', error: err.message });
+          }
         });
   
+        // Pipe the buffer into the storage stream
         blobStream.end(file.buffer);
       } catch (err) {
-        res.status(500).json({ message: 'Upload error', error: err.message });
+        return res.status(500).json({ message: 'Upload error', error: err.message });
       }
     }
   );
-
+  
 // Protected routes
 router.post('/', authenticate, createProduct);
 router.get('/', authenticate, getProducts);

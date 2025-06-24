@@ -55,5 +55,4 @@ router.post('/', authenticate, createProduct);
 router.get('/', authenticate, getProducts);
 router.put('/:id', authenticate, updateProduct);
 router.delete('/:id', authenticate, deleteProduct);
-
 module.exports = router;

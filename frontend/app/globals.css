@@ -6,10 +6,8 @@
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-rubik);
+
 }
 
 @media (prefers-color-scheme: dark) {
@@ -22,5 +20,75 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-poppins), sans-serif;
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    text-shadow: 0 0 5px #000, 0 0 10px #888;
+  }
+  50% {
+    text-shadow: 0 0 10px #000, 0 0 20px #aaa;
+  }
+}
+
+.pulse-glow {
+  animation: pulseGlow 2s infinite;
+}
+
+@keyframes marquee {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+
+.animate-marquee {
+  display: inline-block;
+  animation: marquee 20s linear infinite;
+}
+
+.category-icon {
+  width: 90px;
+  height: 90px;
+  background-image: url('/category-icons.png'); /* should be placed in /public */
+  background-size: 330px 330px; /* original full image size */
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 9999px;
+  background-color: white; /* optional for better contrast */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* optional */
+}
+
+/* Hide scrollbar */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none; /* IE & Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.product-grid{
+
+  padding: 0px;
+  border: 0px;
+  margin: auto;
+  display: block;
+  max-height: 100%;
+  max-width: 100%;
+}
+.preview-grid{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0px;
+  border: 0px;
+  margin: auto;
+  width: 100%;
+  height: auto;
+  max-height: 100%;
+  max-width: 100%;
+}
+.product-font{
+  font-size: 14px;
+  margin: 5px 0;
 }

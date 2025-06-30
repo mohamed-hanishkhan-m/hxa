@@ -11,6 +11,16 @@ exports.createProduct = async (req, res) => {
 };
 
 // Read All
+exports.getAllProducts = async (req, res) => {
+  try {
+    const products = await Product.find({ visible: true }); // show only visible products
+    res.json(products);
+  } catch (err) {
+    console.error("Error fetching products:", err);
+    res.status(500).json({ error: "Server error" });
+  }
+};
+
 exports.getProducts = async (req, res) => {
   try {
     const products = await Product.find().sort({ createdAt: -1 });

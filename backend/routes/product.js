@@ -4,6 +4,7 @@ const upload = require('../middleware/uploadImage');
 const bucket = require('../config/firebase');
 const {
   createProduct,
+  getAllProducts,
   getProducts,
   updateProduct,
   deleteProduct
@@ -52,6 +53,7 @@ router.post(
   
 // Protected routes
 router.post('/', authenticate, createProduct);
+router.get('/public', getAllProducts);
 router.get('/', authenticate, getProducts);
 router.put('/:id', authenticate, updateProduct);
 router.delete('/:id', authenticate, deleteProduct);
